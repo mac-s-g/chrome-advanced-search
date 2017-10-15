@@ -1,0 +1,286 @@
+
+@font-face {
+ font-family: 'advanced-search-roboto';
+ font-style: normal;
+ font-weight: 400;
+ src: url('chrome-extension://__MSG_@@extension_id__/style/fonts/Roboto-Regular.ttf');
+}
+
+#as-clear-style > #chrome-advanced-search-container,
+#as-clear-style > #chrome-advanced-search-container * {
+    font: 15px advanced-search-roboto, sans-serif;
+    font-family: 'advanced-search-roboto', sans-serif;
+    width: auto;
+    height: auto;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+    background-color: transparent;
+    border-radius: 0;
+    font-weight: normal;
+    font-size: 13px;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+    box-shadow: none;
+    border: 0;
+    letter-spacing: normal;
+    transition: none;
+    box-sizing: content-box;
+    text-shadow: none;
+    text-align: left;
+}
+
+#as-clear-style #chrome-advanced-search-container {
+    font-family: 'advanced-search-roboto', sans-serif;
+    font-size: 14px;
+    background-color: #eee;
+    color: black;
+    border: 0;
+    border-bottom: 1px solid #999;
+    border-radius: 0;
+    display: block;
+    position: fixed;
+    top: 0px;
+    bottom: auto;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: auto;
+    z-index: 2147483647;
+    margin: 0;
+    padding: 8px 14px;
+    font-weight: 400;
+    letter-spacing: normal;
+    box-shadow: 0px 0px 2px #777;
+    -webkit-font-smoothing: antialiased;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container,
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container {
+    display: inline-block;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-logic-buttons {
+    display: inline-block;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn,
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn {
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 2px;
+    padding: 9px 18px;
+    vertical-align: top;
+    height: 16px;
+    cursor: pointer;
+    margin-right: 4px;
+    transition: all 0.05s ease-out;
+    font-weight: bold;
+    box-shadow: none;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn:hover,
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn:hover {
+    color: white;
+    box-shadow: none;
+}
+
+/*INPUT CONTAINER*/
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list {
+    display: inline-block;
+}
+
+/*INPUT CONTAINER*/
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-and-badge,
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-and-not-badge {
+    display: inline-block;
+    background-color: #888;
+    padding: 1px 3px;
+    border-radius: 4px;
+    margin-left: 0px;
+    margin-right: 4px;
+
+    vertical-align: bottom;
+    margin-bottom: 7px;
+    color: rgba(66,133,244, 1);
+    font-weight: bold;
+    color: white;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-and-not-badge {
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-or-badge-container {
+    margin-left: 20px;
+    margin-top: 12px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-or-badge {
+    display: inline-block;
+    background-color: #888;
+    padding: 1px 3px;
+    border-radius: 2px;
+    margin-left: 6px;
+    margin-right: 10px;
+
+    vertical-align: bottom;
+    margin-bottom: 7px;
+    color: rgba(66,133,244, 1);
+    font-weight: bold;
+    color: white;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-single-term {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-or-badge-container:last-child .as-or-badge {
+    display: none;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-term-input {
+    display: inline-block;
+    border: 1px solid #aaa;
+    padding: 2px 8px;
+    border-radius: 2px;
+    vertical-align: top;
+    height: 30px;
+    margin-right: 4px;
+    background-color: white;
+    width: 170px;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-term-input::-webkit-input-placeholder {
+  color: #999;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .input-remove-icon {
+    position: absolute;
+    left: 173px;
+    top: 2px;
+    cursor: pointer;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .input-remove-icon > svg {
+    width: 13px;
+    height: 13px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-single-term:first-child .input-remove-icon > svg {
+    visibility: hidden;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .input-remove-icon > svg > path {
+    fill: rgba(0, 0, 0, 0.6);
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-and-btn {
+    background-color: rgba(66,133,244, 0.55);
+    border: 1px solid rgba(66,133,244, 0.6);
+    color: white;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-and-btn:hover {
+    background-color: rgba(66,133,244, 0.7);
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-not-btn {
+    background-color: rgba(156,39,176, 0.55);
+    border: 1px solid rgba(156,39,176, 0.6);
+    color: white;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-not-btn:hover {
+    background-color: rgba(156,39,176, 0.7);
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-or-btn {
+    padding: 9px 11.5px;
+    background-color: rgba(156,39,176, 0.55);
+    border: 1px solid rgba(156,39,176, 0.6);
+    color: white;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-btn.as-or-btn:hover {
+    background-color: rgba(156,39,176, 0.7);
+}
+
+/*CONTROL CONTAINER*/
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container {
+    display: inline-block;
+    float: right;
+    padding-right: 24px;
+    margin-top: 1px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn.as-clear-btn {
+    padding: 9px 18px;
+    background-color: rgba(255,52,36, 0.55);
+    border: 1px solid rgba(255,52,36, 0.6);
+    color: white;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn.as-clear-btn:hover {
+    background-color: rgba(255,52,36, 0.7);
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn.as-submit-btn {
+    padding: 9px 18px;
+    background-color: rgba(38,177,76, 0.55);
+    border: 1px solid rgba(38,177,76, 0.6);
+    color: white;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-btn.as-submit-btn:hover {
+    background-color: rgba(38,177,76, 0.7);
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-close-extension {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0px;
+    font-weight: bold;
+    border-radius: 2px;
+    padding: 0px 3px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container .as-close-extension path {
+    fill: #555;
+}

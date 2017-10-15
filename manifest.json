@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "Advanced Search",
+  "description": "Adds a simple interface to write precise google search queries.  After installing, use Ctrl+Shift+F to toggle the search window.",
+  "version": "0.0.1",
+
+  "icons": {
+    "16": "images/search-icon-16.png",
+    "48": "images/search-icon-48.png",
+    "128": "images/search-icon-128.png"
+  },
+  "browser_action": {
+    "default_title": "Open Advanced Search"
+  },
+  "content_scripts": [{
+    "matches": ["*://*/*"],
+    "css": ["style/content.css"],
+    "js": ["js/dependencies/jquery.slim.min@3.2.1.js", "js/content.js"],
+    "run_at": "document_end"
+  }],
+  "background": {
+    "scripts": ["js/background.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "style/content.css",
+    "style/fonts/Roboto-Regular.ttf"
+  ]
+}
