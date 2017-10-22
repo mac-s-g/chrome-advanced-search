@@ -22,7 +22,7 @@
     background-color: transparent;
     border-radius: 0;
     font-weight: normal;
-    font-size: 13px;
+    font-size: 15px;
     color: #000;
     -webkit-font-smoothing: antialiased;
     box-shadow: none;
@@ -76,16 +76,17 @@
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn {
     display: inline-block;
-    border: 1px solid;
+    /*border: 1px solid;*/
     border-radius: 2px;
     padding: 9px 18px;
     vertical-align: top;
-    height: 16px;
+    height: 18px;
     cursor: pointer;
     margin-right: 4px;
     transition: all 0.05s ease-out;
-    font-weight: bold;
+    /*font-weight: bold;*/
     box-shadow: none;
+    line-height: 18px;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn:hover,
@@ -108,16 +109,21 @@
 #as-input-container .as-input-list .as-and-not-badge {
     display: inline-block;
     background-color: #888;
-    padding: 1px 3px;
+    padding: 2px 3px;
     border-radius: 4px;
     margin-left: 0px;
     margin-right: 4px;
-
     vertical-align: bottom;
-    margin-bottom: 7px;
-    color: rgba(66,133,244, 1);
-    font-weight: bold;
+    margin-bottom: 9px;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-and-badge > div,
+#as-clear-style > #chrome-advanced-search-container
+#as-input-container .as-input-list .as-and-not-badge > div {
+    font-size: 12px;
     color: white;
+    font-weight: bold;
+    text-align: center;
 }
 
 #as-clear-style > #chrome-advanced-search-container
@@ -128,11 +134,11 @@
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-or-badge-container {
-    margin-left: 20px;
+    margin-left: 18px;
     margin-top: 12px;
 }
 
-#as-clear-style > #chrome-advanced-search-container
+/*#as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-or-badge {
     display: inline-block;
     background-color: #888;
@@ -146,7 +152,7 @@
     color: rgba(66,133,244, 1);
     font-weight: bold;
     color: white;
-}
+}*/
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-input-list .as-single-term {
@@ -203,36 +209,42 @@
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-and-btn {
-    background-color: rgba(66,133,244, 0.55);
-    border: 1px solid rgba(66,133,244, 0.6);
+    /*background-color: rgba(66,133,244, 0.55);*/
+    background-color: #97bbf8;
+    /*border: 1px solid rgba(66,133,244, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-and-btn:hover {
-    background-color: rgba(66,133,244, 0.7);
+    /*background-color: rgba(66,133,244, 0.7);*/
+    background-color: #7aa9f7;
 }
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-not-btn {
-    background-color: rgba(156,39,176, 0.55);
-    border: 1px solid rgba(156,39,176, 0.6);
+    /*background-color: rgba(156,39,176, 0.55);*/
+    background-color: #c888d3;
+    /*border: 1px solid rgba(156,39,176, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-not-btn:hover {
-    background-color: rgba(156,39,176, 0.7);
+    /*background-color: rgba(156,39,176, 0.7);*/
+    background-color: #b967c7;
 }
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-or-btn {
     padding: 9px 11.5px;
     background-color: rgba(156,39,176, 0.55);
-    border: 1px solid rgba(156,39,176, 0.6);
+    background-color: #c888d3;
+    /*border: 1px solid rgba(156,39,176, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-or-btn:hover {
     background-color: rgba(156,39,176, 0.7);
+    background-color: #b967c7;
 }
 
 /*CONTROL CONTAINER*/
@@ -247,25 +259,29 @@
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-clear-btn {
     padding: 9px 18px;
-    background-color: rgba(255,52,36, 0.55);
-    border: 1px solid rgba(255,52,36, 0.6);
+    /*background-color: rgba(255,52,36, 0.55);*/
+    background-color: #ff8f86;
+    /*border: 1px solid rgba(255,52,36, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-clear-btn:hover {
-    background-color: rgba(255,52,36, 0.7);
+    /*background-color: rgba(255,52,36, 0.7);*/
+    background-color: #ff7065;
 }
 
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-submit-btn {
     padding: 9px 18px;
-    background-color: rgba(38,177,76, 0.55);
-    border: 1px solid rgba(38,177,76, 0.6);
+    /*background-color: rgba(38,177,76, 0.55);*/
+    background-color: #87d49c;
+    /*border: 1px solid rgba(38,177,76, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-submit-btn:hover {
-    background-color: rgba(38,177,76, 0.7);
+    /*background-color: rgba(38,177,76, 0.7);*/
+    background-color: #67c881
 }
 
 #as-clear-style > #chrome-advanced-search-container
@@ -278,9 +294,88 @@
     font-weight: bold;
     border-radius: 2px;
     padding: 0px 3px;
+    vertical-align: top;
 }
 
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-close-extension path {
     fill: #555;
+}
+
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #aaa;
+    margin-right: 4px;
+    border-radius: 2px;
+    height: 34px;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.1s ease-out;
+    width: 125px;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select:hover {
+    border: 1px solid #888;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-selected-engine {
+    display: inline-block;
+    padding: 2px 4px;
+    padding-right: 24px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-toggle-drop {
+    position: absolute;
+    right: 0px;
+    top: 4px;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-toggle-drop > svg {
+    transition: all 0.1s ease-out;
+    fill: #888;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select:hover
+#as-engine-toggle-drop > svg {
+    fill: #555;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-options {
+    position: absolute;
+    right: -1px;
+    top: 35px;
+    border: 1px solid #aaa;
+    border-radius: 2px 0px 2px 2px;
+    overflow: hidden;
+    width: 125px;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-options #as-engine-container {
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #aaa;
+    padding: 3px 4px;
+}
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-options #as-engine-container:last-child {
+    border-bottom: none;
+}
+
+#as-clear-style > #chrome-advanced-search-container
+#as-control-container #as-engine-select
+#as-engine-options #as-engine-container:hover {
+    background-color: #f5f5f5;
 }

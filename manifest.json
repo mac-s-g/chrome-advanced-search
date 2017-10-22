@@ -28,6 +28,10 @@
   ],
   "web_accessible_resources": [
     "style/content.css",
-    "style/fonts/Roboto-Regular.ttf"
+    "style/fonts/Roboto-Regular.ttf",
+    "images/google-logo-scaled.png",
+    "images/wikipedia-logo-scaled.png",
+    "images/youtube-logo-scaled.png",
+    "images/google-scholar-logo-scaled.png"
   ]
 }
