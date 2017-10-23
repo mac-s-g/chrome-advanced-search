@@ -251,7 +251,11 @@
                                             return "<div>and</div>";
                                         }
                                     })
-                                    .css('display', () => {return term_key == (content.length - 1) ? 'none' : 'inline-block'})
+                                    .css('display', () => {
+                                        return term_key == (content.length - 1)
+                                            ? 'none'
+                                            : 'inline-block';
+                                    })
                             )
                         })
 
@@ -363,7 +367,7 @@
         }
     );
 
-    //initialize the app
+    //initialize query parsing and storage
     store.init();
 
 })();
