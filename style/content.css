@@ -55,7 +55,7 @@
     padding: 8px 14px;
     font-weight: 400;
     letter-spacing: normal;
-    box-shadow: 0px 0px 2px #777;
+    box-shadow: 0px 0px 1px #777;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -76,7 +76,6 @@
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn {
     display: inline-block;
-    /*border: 1px solid;*/
     border-radius: 2px;
     padding: 9px 18px;
     vertical-align: top;
@@ -84,9 +83,10 @@
     cursor: pointer;
     margin-right: 4px;
     transition: all 0.05s ease-out;
-    /*font-weight: bold;*/
     box-shadow: none;
-    line-height: 18px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-size: 13px
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn:hover,
@@ -108,7 +108,7 @@
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-input-list .as-and-not-badge {
     display: inline-block;
-    background-color: #888;
+    background-color: #999;
     padding: 2px 3px;
     border-radius: 4px;
     margin-left: 0px;
@@ -124,6 +124,7 @@
     color: white;
     font-weight: bold;
     text-align: center;
+    text-transform: uppercase;
 }
 
 #as-clear-style > #chrome-advanced-search-container
@@ -137,22 +138,6 @@
     margin-left: 18px;
     margin-top: 12px;
 }
-
-/*#as-clear-style > #chrome-advanced-search-container
-#as-input-container .as-or-badge {
-    display: inline-block;
-    background-color: #888;
-    padding: 1px 3px;
-    border-radius: 2px;
-    margin-left: 6px;
-    margin-right: 10px;
-
-    vertical-align: bottom;
-    margin-bottom: 7px;
-    color: rgba(66,133,244, 1);
-    font-weight: bold;
-    color: white;
-}*/
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-input-list .as-single-term {
@@ -177,6 +162,8 @@
     margin-right: 4px;
     background-color: white;
     width: 170px;
+    font-size: 15px;
+
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-term-input::-webkit-input-placeholder {
@@ -199,7 +186,7 @@
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-single-term:first-child .input-remove-icon > svg {
-    visibility: hidden;
+    display: none;
 }
 
 #as-clear-style > #chrome-advanced-search-container
@@ -211,12 +198,10 @@
 #as-input-container .as-btn.as-and-btn {
     /*background-color: rgba(66,133,244, 0.55);*/
     background-color: #97bbf8;
-    /*border: 1px solid rgba(66,133,244, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-and-btn:hover {
-    /*background-color: rgba(66,133,244, 0.7);*/
     background-color: #7aa9f7;
 }
 
@@ -224,26 +209,21 @@
 #as-input-container .as-btn.as-not-btn {
     /*background-color: rgba(156,39,176, 0.55);*/
     background-color: #c888d3;
-    /*border: 1px solid rgba(156,39,176, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-not-btn:hover {
-    /*background-color: rgba(156,39,176, 0.7);*/
     background-color: #b967c7;
 }
 
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-or-btn {
     padding: 9px 11.5px;
-    background-color: rgba(156,39,176, 0.55);
     background-color: #c888d3;
-    /*border: 1px solid rgba(156,39,176, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-input-container .as-btn.as-or-btn:hover {
-    background-color: rgba(156,39,176, 0.7);
     background-color: #b967c7;
 }
 
@@ -261,12 +241,10 @@
     padding: 9px 18px;
     /*background-color: rgba(255,52,36, 0.55);*/
     background-color: #ff8f86;
-    /*border: 1px solid rgba(255,52,36, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-clear-btn:hover {
-    /*background-color: rgba(255,52,36, 0.7);*/
     background-color: #ff7065;
 }
 
@@ -275,12 +253,10 @@
     padding: 9px 18px;
     /*background-color: rgba(38,177,76, 0.55);*/
     background-color: #87d49c;
-    /*border: 1px solid rgba(38,177,76, 0.6);*/
     color: white;
 }
 #as-clear-style > #chrome-advanced-search-container
 #as-control-container .as-btn.as-submit-btn:hover {
-    /*background-color: rgba(38,177,76, 0.7);*/
     background-color: #67c881
 }
 

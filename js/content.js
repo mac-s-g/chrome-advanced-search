@@ -1,77 +1,79 @@
 
 (function(){
-    const storage_key = 'advanced_search';
+    const storage_key = 'advanced_search_extension';
 
     const persist_timeout_hours = 24;
     const persist_timeout_ms = 60 * 60 * 1000 * persist_timeout_hours;
 
     const search_engines = {
-        'https://google.com/search?q=': '/images/google-logo-scaled.png',
-        'https://scholar.google.com/scholar?q=': '/images/google-scholar-logo-scaled.png',
-        'https://en.wikipedia.org/wiki/Special:Search?search=': '/images/wikipedia-logo-scaled.png',
-        'https://youtube.com/results?q=': '/images/youtube-logo-scaled.png'
-    }
+        google: {
+            url: 'https://google.com/search?q=',
+            logo: '/images/google-logo-scaled.png'
+        },
+        scholar: {
+            url: 'https://scholar.google.com/scholar?q=',
+            logo: '/images/google-scholar-logo-scaled.png'
+        },
+        wikipedia: {
+            url: 'https://en.wikipedia.org/wiki/Special:Search?search=',
+            logo: '/images/wikipedia-logo-scaled.png'
+        },
+        youtube: {
+            url: 'https://youtube.com/results?q=',
+            logo: '/images/youtube-logo-scaled.png'
+        }
+    };
 
-    const default_engine = 'https://google.com/search?q=';
+    const default_engine = 'google';
+
+    const util = {
+        isset: (variable) => {
+            if (variable === undefined || variable == null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 
     const store = {
         tab_id: null,
 
-        init: (tab_id) => {
-            let existing_storage, storage;
-            try {
-                existing_storage = JSON.parse(localStorage[storage_key]);
-            } catch (e) {
-                existing_storage = {};
-            }
-            store.tab_id = tab_id;
-            storage = store._removeExpiredData(existing_storage);
-            localStorage[storage_key] = JSON.stringify(storage);
+        cache: {},
+
+        init: () => {
+            store.cache = store._parseURL();
         },
 
-        _removeExpiredData: (storage) => {
-            //get rid of expired storage
-            let filtered_storage = {};
-            for (tab_id in storage) {
-                if (storage[tab_id].timestamp && !store._isExpired(storage[tab_id].timestamp)) {
-                    filtered_storage[tab_id] = storage[tab_id];
+        _parseURL: () => {
+            let query = location.search.substr(1),
+                result = {};
+            query.split("&").forEach(function(part) {
+                var item = part.split("=");
+                if (item[0] == storage_key && util.isset(item[1])) {
+                    try {
+                        result = JSON.parse(decodeURIComponent(item[1]));
+                    } catch (e) {}
+                }
+            });
+
+            if (util.isset(result['input_content'])
+            ) {
+                for (let term in result['input_content']) {
+                    result['input_content'][term]['value']
+                        = result['input_content'][term]['value'].replace(/\+/g, ' ');
                 }
             }
-            return filtered_storage;
+
+            return result;
         },
 
-        _isExpired: (timeout) => {
-            return (timeout + persist_timeout_ms) < Date.now();
-        },
-
-        _parse: () => {
-            try {
-                storage = JSON.parse(localStorage[storage_key]);
-            } catch (e) {
-                storage = {};
-            }
-            if (!storage[store.tab_id]) {
-                storage[store.tab_id] = {timestamp: Date.now()};
-            }
-            return storage;
-        },
-
-        _save: (key, value) => {
-            let storage = store._parse();
-            storage[store.tab_id][key] = value;
-            storage[store.tab_id]['timestamp'] = Date.now();
-            localStorage[storage_key] = JSON.stringify(storage);
-        },
-
-        get: (key, default_value, ignore_cache_timeout) => {
-            const storage = store._parse()[store.tab_id];
-            ignore_cache_timeout = ignore_cache_timeout === true ? true : false;
-            const invalid = store._isExpired(storage['timeout']) && !ignore_cache_timeout;
-            return (storage[key] === undefined || invalid) ? default_value : storage[key];
+        get: (key, default_value) => {
+            return (store.cache[key] === undefined) ? default_value : store.cache[key];
         },
 
         set: (key, value) => {
-            store._save(key, value);
+            store.cache[key] = value;
         }
     }
 
@@ -105,7 +107,6 @@
         },
 
         isVisible: () => {
-            // return store.get('visible', default_visible);
             return $('#as-clear-style').length == 1;
         },
 
@@ -131,10 +132,10 @@
                                         .attr('src', chrome.extension.getURL(
                                             search_engines[
                                                 store.get(
-                                                    'selected-engine',
+                                                    'selected_engine',
                                                     default_engine
                                                 )
-                                            ]
+                                            ].logo
                                         ))
                                 ),
                             $('<div />')
@@ -154,11 +155,11 @@
                                                 .attr(
                                                     'src',
                                                     chrome.extension.getURL(
-                                                        search_engines[engine]
+                                                        search_engines[engine].logo
                                                     ))
                                         )
                                         .on('click', () => {
-                                            store.set('selected-engine', engine);
+                                            store.set('selected_engine', engine);
                                             control.populate();
                                             $('.as-term-input').last().focus();
                                         });
@@ -175,7 +176,7 @@
                         .addClass('as-btn as-clear-btn')
                         .html('clear')
                         .on('click', () => {
-                            store.set('input-content', input.getInitialFormValue());
+                            store.set('input_content', input.getInitialFormValue());
                             input.populate();
                         }),
                     $('<div />')
@@ -200,135 +201,128 @@
 
     const input = {
         populate: () => {
-            $('#as-input-container').html('');
-
-            input.getContent().map((and_block, and_block_key) => {
-                let content = input.getContent();
-                $('#as-input-container')
-                    .append(
-                        $('<div />')
-                            .addClass('as-input-list')
-                            .append(and_block.terms.map((term, term_key) => {
-                                return $('<div />').addClass('as-single-term').append(
-                                    $('<input / type="text">')
-                                        .addClass('as-term-input')
-                                        .attr('placeholder', 'search term')
-                                        .val(content[and_block_key].terms[term_key].value)
-                                        .on('keyup', (e) => {
-                                            let content = input.getContent();
-                                            content[and_block_key].terms[term_key].value = e.target.value;
-                                            store.set('input-content', content);
-
-                                            if (e.key == "Enter") {
-
-                                                input.submitQuery();
-                                            }
-                                        }),
-                                    $('<div>')
-                                        .addClass('input-remove-icon')
-                                        .append(svg.closeIcon())
-                                        .on('click', function() {
-                                            let content = input.getContent();
-                                            if (content[and_block_key].terms.length === 1) {
-                                                content.splice(and_block_key, 1)
-                                            } else {
-                                                content[and_block_key].terms.splice(term_key, 1);
-                                            }
-                                            store.set('input-content', content);
-                                            input.populate();
-                                        }),
-                                    $('<div>')
-                                        .addClass(() => {
-                                            if (and_block.terms[term_key + 1]
-                                                && and_block.terms[term_key + 1].not
-                                            ) {
-                                                return "as-and-not-badge";
-                                            } else {
-                                                return "as-and-badge";
-                                            }
-                                        })
-                                        .html(() => {
-                                            if (and_block.terms[term_key + 1]
-                                                && and_block.terms[term_key + 1].not
-                                            ) {
-                                                return "<div>and</div><div>not</div>";
-                                            } else {
-                                                return "<div>and</div>";
-                                            }
-                                        })
-                                        .css('display', () => {return term_key == (and_block.terms.length - 1) ? 'none' : 'inline-block'})
-                                )
-                            })
-
-                        )
-                        .append(
-                            $('<div />').addClass('as-logic-buttons').append(
-                                $('<div />')
-                                    .addClass('as-btn as-and-btn')
-                                    .html('add term')
-                                    .on('click', () => {
+            $('#as-input-container')
+                .html('')
+                .append(
+                    $('<div />')
+                        .addClass('as-input-list')
+                        .append(input.getContent().map((term, term_key) => {
+                            let content = input.getContent();
+                            return $('<div />').addClass('as-single-term').append(
+                                $('<input / type="text" spellcheck="false">')
+                                    .addClass('as-term-input')
+                                    .attr('placeholder', 'search term')
+                                    .val(content[term_key].value)
+                                    .on('keyup', (e) => {
                                         let content = input.getContent();
-                                        content[and_block_key].terms.push(
-                                            term_template
-                                        )
-                                        store.set('input-content', content);
+                                        content[term_key].value = e.target.value;
+                                        store.set('input_content', content);
+
+                                        if (e.key == "Enter") {
+
+                                            input.submitQuery();
+                                        }
+                                    }),
+                                $('<div>')
+                                    .addClass('input-remove-icon')
+                                    .append(svg.closeIcon())
+                                    .on('click', function() {
+                                        let content = input.getContent();
+                                        content.splice(term_key, 1);
+                                        store.set('input_content', content);
                                         input.populate();
                                     }),
-                                $('<div />')
-                                    .addClass('as-btn as-not-btn')
-                                    .html('exclude term')
-                                    .on('click', () => {
-                                        let content = input.getContent();
-                                        let template = {...term_template};
-                                        template.not = true;
-                                        content[and_block_key].terms.push(
-                                            template
-                                        )
-                                        store.set('input-content', content);
-                                        input.populate();
+                                $('<div>')
+                                    .addClass(() => {
+                                        if (content[term_key + 1]
+                                            && content[term_key + 1].not
+                                        ) {
+                                            return "as-and-not-badge";
+                                        } else {
+                                            return "as-and-badge";
+                                        }
                                     })
+                                    .html(() => {
+                                        if (content[term_key + 1]
+                                            && content[term_key + 1].not
+                                        ) {
+                                            return "<div>and</div><div>not</div>";
+                                        } else {
+                                            return "<div>and</div>";
+                                        }
+                                    })
+                                    .css('display', () => {return term_key == (content.length - 1) ? 'none' : 'inline-block'})
                             )
+                        })
 
-                        )
                     )
+                    .append(
+                        $('<div />').addClass('as-logic-buttons').append(
+                            $('<div />')
+                                .addClass('as-btn as-and-btn')
+                                .html('add term')
+                                .on('click', () => {
+                                    let content = input.getContent();
+                                    content.push({...term_template});
+                                    store.set('input_content', content);
+                                    input.populate();
+                                }),
+                            $('<div />')
+                                .addClass('as-btn as-not-btn')
+                                .html('exclude term')
+                                .on('click', () => {
+                                    let content = input.getContent();
+                                    let template = {...term_template};
+                                    template.not = true;
+                                    content.push(template);
+                                    store.set('input_content', content);
+                                    input.populate();
+                                })
+                        )
 
-                $('.as-term-input').last().focus();
-            })
+                    )
+                );
+
+            $('.as-term-input').last().focus();
         },
 
         getInitialFormValue: () => {
-            return [{'terms': [{...term_template}]}];
+            return [{...term_template}];
         },
 
-        parseQuery: () => {
-            let content = input.getContent(true);
+        createQuery: () => {
+            let content = input.getContent();
 
-            query = content.map((and_block, and_block_key) => {
-                return and_block['terms'].map((term) => {
-                    if (term.value === '') {
-                        return '';
-                    } else {
-                        return (term.not ? "-": "")
-                            + '"'
-                            + term.value.replace(/"/g, '\\"').replace(/\s/g, "+")
-                            + '"';
-                    }
-                }).join('+')
-            })
+            query = content.map((term) => {
+                if (term.value === '') {
+                    return '';
+                } else {
+                    return (term.not ? "-": "")
+                        + '"'
+                        + encodeURIComponent(term.value)
+                        + '"';
+                }
+            }).join(' ')
 
             return query;
         },
 
-        submitQuery: () => {
-            window.location = store.get(
-                'selected-engine',
-                default_engine,
-                true
-            ) + input.parseQuery();
+        createCacheParam: () => {
+            return '&' + storage_key + '=' + encodeURIComponent(
+                JSON.stringify(store.cache)
+            );
         },
 
-        getContent: (ignore_cache_timeout) => {
-            return store.get('input-content', input.getInitialFormValue(), ignore_cache_timeout === true);
+        submitQuery: () => {
+            window.location = search_engines[store.get(
+                'selected_engine',
+                default_engine
+            )].url + input.createQuery()
+            + input.createCacheParam();
+        },
+
+        getContent: () => {
+            return store.get('input_content', input.getInitialFormValue());
         }
     }
 
@@ -369,11 +363,7 @@
         }
     );
 
-    chrome.runtime.sendMessage({action: "fetch-tab"}, (response) => {
-        let tab_id = response.tab_id;
-        console.log('tab_id', response, tab_id);
-        store.init(tab_id);
-    });
-
+    //initialize the app
+    store.init();
 
 })();
