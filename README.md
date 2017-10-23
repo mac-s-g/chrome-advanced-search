@@ -4,7 +4,7 @@ Source code for a chrome extension that adds a simple interface to write precise
 
 Here's a screenshot of the search tool:
 
-![Advanced Search screenshot](https://github.com/mac-s-g/chrome-advanced-search/blob/master/images/advanced-search-440x280.png?raw=true)
+![Advanced Search screenshot](https://github.com/mac-s-g/chrome-advanced-search/blob/master/images/advanced-search-440x280-2.png?raw=true)
 
 
 You can install the app from the [Chrome Webstore](https://chrome.google.com/webstore/detail/advanced-search/elgfhefgbaekbebmlmdhildnlhinmnak).
