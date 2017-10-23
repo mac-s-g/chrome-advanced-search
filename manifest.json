@@ -3,7 +3,7 @@
 
   "name": "Advanced Search",
   "description": "Adds a simple interface to write precise google search queries.  After installing, use Ctrl+Shift+F to toggle the search window.",
-  "version": "0.0.1",
+  "version": "0.1.0",
 
   "icons": {
     "16": "images/search-icon-16.png",
