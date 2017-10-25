@@ -33,5 +33,8 @@
     "images/wikipedia-logo-scaled.png",
     "images/youtube-logo-scaled.png",
     "images/google-scholar-logo-scaled.png"
-  ]
+  ],
+  "chrome_url_overrides" : {
+    "newtab": "html/new-tab.html"
+  }
 }

@@ -6,11 +6,3 @@ chrome.browserAction.onClicked.addListener(
         );
     }
 );
-
-chrome.runtime.onMessage.addListener(
-    (request, sender, sendResponse) => {
-        if (request.action == 'fetch-tab') {
-            sendResponse({tab_id: sender.tab.windowId})
-        }
-    }
-);
