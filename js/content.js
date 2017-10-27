@@ -1,6 +1,7 @@
 
 (function(){
     const storage_key = 'advanced_search_extension';
+    const new_tab_key = 'new_tab';
 
     const persist_timeout_hours = 24;
     const persist_timeout_ms = 60 * 60 * 1000 * persist_timeout_hours;
@@ -49,11 +50,21 @@
             let query = location.search.substr(1),
                 result = {};
             query.split("&").forEach(function(part) {
-                var item = part.split("=");
+                var item = part.split("="), press;
                 if (item[0] == storage_key && util.isset(item[1])) {
                     try {
                         result = JSON.parse(decodeURIComponent(item[1]));
                     } catch (e) {}
+                } else if (item[0] == new_tab_key) {
+                    // press = jQuery.Event("keypress");
+                    // console.log(press);
+                    // press.ctrlKey = true;
+                    // press.which = 76;
+                    // press.keyCode = 76;
+                    // $('window').on('load', () => {
+                    //     console.log('hey!');
+                    //     $("body").trigger(press);
+                    // });
                 }
             });
 
@@ -370,4 +381,11 @@
     //initialize query parsing and storage
     store.init();
 
+    $(window).on('load', (e) => {
+        console.log('hey')
+
+        console.log('ho')
+    })
+
 })();
+

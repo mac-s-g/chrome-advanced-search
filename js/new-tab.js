@@ -1,2 +1,2 @@
 //redirect from chrome://new-tab to google.com
-window.location = 'https://www.google.com'
+window.location = 'https://www.google.com?new_tab=true'
