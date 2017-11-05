@@ -1,7 +1,6 @@
 
 (function(){
     const storage_key = 'advanced_search_extension';
-    const new_tab_key = 'new_tab';
 
     const persist_timeout_hours = 24;
     const persist_timeout_ms = 60 * 60 * 1000 * persist_timeout_hours;
@@ -55,16 +54,6 @@
                     try {
                         result = JSON.parse(decodeURIComponent(item[1]));
                     } catch (e) {}
-                } else if (item[0] == new_tab_key) {
-                    // press = jQuery.Event("keypress");
-                    // console.log(press);
-                    // press.ctrlKey = true;
-                    // press.which = 76;
-                    // press.keyCode = 76;
-                    // $('window').on('load', () => {
-                    //     console.log('hey!');
-                    //     $("body").trigger(press);
-                    // });
                 }
             });
 
@@ -160,7 +149,8 @@
                                 )
                                 .append(Object.keys(search_engines).map((engine) => {
                                     return $('<div />')
-                                        .attr('id', 'as-engine-container')
+                                        .addClass('as-engine-container')
+                                        .attr('id', 'as-engine-' + engine)
                                         .append(
                                             $('<img />')
                                                 .attr(
@@ -201,6 +191,30 @@
                         .append(svg.closeIcon())
                         .on('click', () => {page.toggleVisible()})
                 )
+        },
+
+        selectNextEngine: () => {
+            const selected_engine = store.get(
+                'selected_engine',
+                default_engine
+            );
+            const selected_idx = Object.keys(search_engines).indexOf(selected_engine);
+            if (util.isset(Object.keys(search_engines)[selected_idx + 1]))  {
+                store.set('selected_engine', Object.keys(search_engines)[selected_idx + 1]);
+                control.populate();
+            }
+        },
+
+        selectPreviousEngine: () => {
+            const selected_engine = store.get(
+                'selected_engine',
+                default_engine
+            );
+            const selected_idx = Object.keys(search_engines).indexOf(selected_engine);
+            if (util.isset(Object.keys(search_engines)[selected_idx - 1]))  {
+                store.set('selected_engine', Object.keys(search_engines)[selected_idx - 1]);
+                control.populate();
+            }
         }
     }
 
@@ -361,11 +375,42 @@
         }
     }
 
+    //keyboard controls
     $(document).on('keydown', (e) => {
         if (e.shiftKey && e.ctrlKey && e.key.toLowerCase() == 'f') {
             page.toggleVisible();
         } else if (e.key == 'Escape' && page.isVisible()) {
             page.toggleVisible();
+        } else if (
+            e.key == 'Tab'
+            && page.isVisible()
+            //check to see if focus is on last input and tab was pressed
+            && $('.as-term-input').index($('.as-term-input:focus')) + 1 === $('.as-term-input').length
+        ) {
+            if (
+                e.shiftKey
+                && $('.as-term-input').length > 1
+                && $('.as-term-input').last().val() == ''
+            ) {
+                //remove last input
+                let content = input.getContent();
+                content.splice($('.as-term-input').length - 1, 1);
+                store.set('input_content', content);
+                setTimeout(() => {input.populate()}, 10);
+            } else if (!e.shiftKey) {
+                //add new input
+                let content = input.getContent();
+                content.push({...term_template});
+                store.set('input_content', content);
+                input.populate();
+                setTimeout(() => {input.populate()}, 10);
+            }
+        } else if (page.isVisible()) {
+            if (e.key == 'ArrowUp') {
+                control.selectPreviousEngine();
+            } else if (e.key == 'ArrowDown') {
+                control.selectNextEngine();
+            }
         }
     })
 
@@ -380,12 +425,6 @@
 
     //initialize query parsing and storage
     store.init();
-
-    $(window).on('load', (e) => {
-        console.log('hey')
-
-        console.log('ho')
-    })
 
 })();
 
